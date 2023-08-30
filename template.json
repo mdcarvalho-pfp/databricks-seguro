@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2019-09-01",
+            "name": "kvdatabricks0001abcdefg",
+            "location": "[resourceGroup().location]",
+            "properties": {
+            "sku": {
+                "family": "A",
+                "name": "standard"
+            },
+            "tenantId": "[subscription().tenantId]",
+            "accessPolicies": []
+            }
+        },
+        {
+            "name": "wsdatabricks",
+            "type": "Microsoft.Databricks/workspaces",
+            "apiVersion": "2018-04-01",
+            "location": "[resourceGroup().location]",
+            "sku": {
+            "name": "premium"
+            },
+            "properties": {
+            "managedResourceGroupId": "[concat(subscription().id, '/resourceGroups/', 'rg-databricks-managed-resources')]"
+            }
+        }
+    ],
+    "outputs": {}
+}
